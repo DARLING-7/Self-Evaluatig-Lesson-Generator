@@ -1,0 +1,15 @@
+{
+  "runs": 1,
+  "failure_counts": {
+    "length_ok": 2,
+    "how_it_works": 2,
+    "terms_defined": 2,
+    "beginner_language": 1
+  },
+  "last_reasons": {
+    "length_ok": "Lesson has 438 words. It must be between 500 and 1000 words.",
+    "how_it_works": "The how_it_works checkpoint requires clear ordered steps for retrieve, add to question, and generate, but the lesson lists detailed technical vector steps instead of the simple high-level flow.",
+    "terms_defined": "The terms LLM, embeddings, and vector database are used in section 2 and the start of section 3 before they are formally explained in the steps.",
+    "beginner_language": "Terms like embeddings and vector database are too advanced for a beginner with limited English."
+  }
+}

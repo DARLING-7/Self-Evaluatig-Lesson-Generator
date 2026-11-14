@@ -1,0 +1,60 @@
+{
+  "pass_rule": "ALL checkpoints must pass. No partial credit.",
+  "checks": [
+    {
+      "id": "what_is_rag",
+      "type": "llm",
+      "question": "Does the lesson define RAG in one simple sentence near the start, in plain words a beginner can understand?"
+    },
+    {
+      "id": "why_it_matters",
+      "type": "llm",
+      "question": "Does the lesson explain the problem RAG solves (for example: AI making up answers, or not knowing recent or private information)?"
+    },
+    {
+      "id": "how_it_works",
+      "type": "llm",
+      "question": "Does the lesson explain how RAG works as clear ordered steps: retrieve information, add it to the question, then generate the answer?"
+    },
+    {
+      "id": "accurate_grounded",
+      "type": "llm",
+      "question": "Is every factual claim consistent with the GROUNDING FACTS provided, with no false or misleading statements?"
+    },
+    {
+      "id": "has_example",
+      "type": "llm",
+      "question": "Does the lesson include at least one concrete real-world example that a student in India can relate to?"
+    },
+    {
+      "id": "terms_defined",
+      "type": "llm",
+      "question": "Is every technical term (such as LLM, embedding, vector, database) explained in simple words at the exact place it FIRST appears, before it is used anywhere else? Fail if any term is used before it is explained."
+    },
+    {
+      "id": "beginner_language",
+      "type": "llm",
+      "question": "Is the language simple enough for a non-English-medium 12th-grade graduate, with no difficult words, idioms, or long complicated sentences?"
+    },
+    {
+      "id": "teaching_flow",
+      "type": "llm",
+      "question": "Does the lesson follow a logical order: what it is, then why it matters, then how it works, then an example, then a recap?"
+    },
+    {
+      "id": "avg_sentence_length",
+      "type": "code",
+      "question": "Is the average sentence length 18 words or fewer?"
+    },
+    {
+      "id": "length_ok",
+      "type": "code",
+      "question": "Is the lesson between 500 and 1000 words?"
+    },
+    {
+      "id": "has_recap",
+      "type": "code",
+      "question": "Does the lesson contain a section headed 'Recap' or 'Summary'?"
+    }
+  ]
+}

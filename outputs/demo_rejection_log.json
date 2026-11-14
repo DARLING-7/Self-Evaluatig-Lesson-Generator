@@ -1,0 +1,41 @@
+{
+  "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+  "timestamp": "2026-11-13T19:26:25",
+  "status": "SHIPPED",
+  "total_attempts": 2,
+  "demo_mode": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "error_injected_for_demo": true,
+      "word_count": 970,
+      "checks_passed": 10,
+      "checks_total": 11,
+      "passed": false,
+      "failed_checks": [
+        {
+          "id": "accurate_grounded",
+          "reason": "The very first sentence of the lesson makes a false claim about RAG retraining model weights, which directly contradicts Grounding Fact 7. The lesson should state that RAG does NOT retrain the LLM's weights."
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "error_injected_for_demo": false,
+      "word_count": 984,
+      "checks_passed": 11,
+      "checks_total": 11,
+      "passed": true,
+      "failed_checks": [],
+      "changes_from_previous_attempt": {
+        "fixed": [
+          "accurate_grounded"
+        ],
+        "still_failing": [],
+        "new_failures": [],
+        "word_count_before": 970,
+        "word_count_after": 984
+      }
+    }
+  ]
+}

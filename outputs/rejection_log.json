@@ -1,0 +1,92 @@
+{
+  "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+  "timestamp": "2026-11-13T20:47:00",
+  "status": "NEEDS_HUMAN_REVIEW",
+  "total_attempts": 3,
+  "demo_mode": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "error_injected_for_demo": false,
+      "word_count": 438,
+      "checks_passed": 7,
+      "checks_total": 11,
+      "passed": false,
+      "failed_checks": [
+        {
+          "id": "length_ok",
+          "reason": "Lesson has 438 words. It must be between 500 and 1000 words."
+        },
+        {
+          "id": "how_it_works",
+          "reason": "The steps list technical details like embeddings and vector databases instead of just retrieve, add to question, and generate."
+        },
+        {
+          "id": "terms_defined",
+          "reason": "Terms like LLM and embeddings are used in section 1 and 2 before they are fully defined in section 3."
+        },
+        {
+          "id": "beginner_language",
+          "reason": "Terms like embeddings and vector database are too advanced for a beginner with limited English."
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "error_injected_for_demo": false,
+      "word_count": 628,
+      "checks_passed": 10,
+      "checks_total": 11,
+      "passed": false,
+      "failed_checks": [
+        {
+          "id": "how_it_works",
+          "reason": "The how_it_works checkpoint requires clear ordered steps for retrieve, add to question, and generate, but the lesson lists detailed technical vector steps instead of the simple high-level flow."
+        }
+      ],
+      "changes_from_previous_attempt": {
+        "fixed": [
+          "beginner_language",
+          "length_ok",
+          "terms_defined"
+        ],
+        "still_failing": [
+          "how_it_works"
+        ],
+        "new_failures": [],
+        "word_count_before": 438,
+        "word_count_after": 628
+      }
+    },
+    {
+      "attempt": 3,
+      "error_injected_for_demo": false,
+      "word_count": 438,
+      "checks_passed": 9,
+      "checks_total": 11,
+      "passed": false,
+      "failed_checks": [
+        {
+          "id": "length_ok",
+          "reason": "Lesson has 438 words. It must be between 500 and 1000 words."
+        },
+        {
+          "id": "terms_defined",
+          "reason": "The terms LLM, embeddings, and vector database are used in section 2 and the start of section 3 before they are formally explained in the steps."
+        }
+      ],
+      "changes_from_previous_attempt": {
+        "fixed": [
+          "how_it_works"
+        ],
+        "still_failing": [],
+        "new_failures": [
+          "length_ok",
+          "terms_defined"
+        ],
+        "word_count_before": 628,
+        "word_count_after": 438
+      }
+    }
+  ]
+}
