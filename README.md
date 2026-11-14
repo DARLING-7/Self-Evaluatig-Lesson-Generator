@@ -1,8 +1,7 @@
 # Self-Evaluating Lesson Content Generator
 
 An agentic system that generates a beginner lesson, judges it against a pass/fail rubric,
-and regenerates until it is good enough to ship. Built for the NxtWave Associate GenAI
-Engineer (Content Systems) take-home assignment. Topic: Introduction to RAG.
+and regenerates until it is good enough to ship. 
 
 ## Architecture
 
