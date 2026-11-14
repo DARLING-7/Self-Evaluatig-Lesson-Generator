@@ -7,12 +7,12 @@ from google.genai import types
 load_dotenv()
 
 _API_KEY = os.getenv("GEMINI_API_KEY")
-_models_raw = os.getenv("GEMINI_MODELS") or os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
-MODELS = [m.strip() for m in _models_raw.split(",") if m.strip()]
+MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash").strip()
 
 if not _API_KEY or _API_KEY == "paste_your_key_here":
     raise RuntimeError("GEMINI_API_KEY is missing. Add your key to the .env file.")
 
+# v1beta is required for JSON mode
 _client = genai.Client(
     api_key=_API_KEY,
     http_options=types.HttpOptions(api_version="v1beta"),
@@ -31,37 +31,34 @@ def _is_temporary(error_text):
 
 
 def call_gemini(prompt, temperature=0.7, json_mode=False, max_attempts=4):
-    """Call Gemini. Retries temporary errors. Moves to the next model if the
-    daily quota is used up or the model name is invalid."""
+    """Call the single configured Gemini model.
+    Retries temporary errors (server busy, per-minute rate limit).
+    Stops immediately on permanent errors (daily quota, bad key, bad model name)."""
     config = types.GenerateContentConfig(
         temperature=temperature,
         response_mime_type="application/json" if json_mode else "text/plain",
     )
     last_error = None
-    for model in MODELS:
-        for attempt in range(1, max_attempts + 1):
-            try:
-                response = _client.models.generate_content(
-                    model=model, contents=prompt, config=config
+    for attempt in range(1, max_attempts + 1):
+        try:
+            response = _client.models.generate_content(
+                model=MODEL, contents=prompt, config=config
+            )
+            if response.text:
+                return response.text
+            last_error = "Empty response from model"
+        except Exception as e:
+            last_error = str(e)
+            if _is_daily_quota(last_error):
+                raise RuntimeError(
+                    f"Daily quota used up for {MODEL}. Wait for the reset or enable billing."
                 )
-                if response.text:
-                    return response.text
-                last_error = "Empty response from model"
-            except Exception as e:
-                last_error = str(e)
-                if _is_daily_quota(last_error):
-                    print(f"  [llm] Daily quota used up for {model}. Trying next model...")
-                    break
-                if not _is_temporary(last_error):
-                    print(f"  [llm] {model} failed: {last_error[:120]}. Trying next model...")
-                    break
-            wait = 2 ** attempt
-            print(f"  [llm] {model} attempt {attempt} failed ({last_error[:80]}). Retrying in {wait}s...")
-            time.sleep(wait)
-    raise RuntimeError(
-        f"All models failed. Last error: {last_error[:300]}\n"
-        "If this is a daily quota error, wait for the reset, switch model, or enable billing."
-    )
+            if not _is_temporary(last_error):
+                raise RuntimeError(f"Gemini call failed ({MODEL}): {last_error[:300]}")
+        wait = 2 ** attempt  # 2, 4, 8, 16 seconds
+        print(f"  [llm] attempt {attempt} failed ({last_error[:80]}). Retrying in {wait}s...")
+        time.sleep(wait)
+    raise RuntimeError(f"Gemini call failed after {max_attempts} attempts: {last_error[:300]}")
 
 
 def strip_fences(text):
