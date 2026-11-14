@@ -9,7 +9,6 @@ Engineer (Content Systems) take-home assignment. Topic: Introduction to RAG.
 Topic -> Memory ("mistakes to avoid") -> Generator Agent -> Code Checker + Evaluator Agent
 -> Controller (pass? ship : retry with reasons, max 2 retries) -> lesson + rejection log -> Memory update
 
-[Insert architecture diagram image here]
 
 ## Components
 
